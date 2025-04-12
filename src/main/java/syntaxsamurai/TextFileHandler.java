@@ -17,7 +17,7 @@ public class TextFileHandler {
         FileWriter fw;
         BufferedWriter bw;
 
-        fr = new FileReader("1.txt");
+        fr = new FileReader("2.txt");
         br = new BufferedReader(fr);
 
         String[] zooDim = parseTuple(br.readLine());

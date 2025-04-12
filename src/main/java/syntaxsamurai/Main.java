@@ -19,7 +19,7 @@ public class Main {
         );
 
         System.out.println(formatPath(path));
-        FileWriter fw = new FileWriter("lvl1.txt");
+        FileWriter fw = new FileWriter("lvl2.txt");
         fw.write(formatPath(path));
         fw.close();
 
