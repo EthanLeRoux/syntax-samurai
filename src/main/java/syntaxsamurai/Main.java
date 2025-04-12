@@ -45,18 +45,18 @@ public class Main {
         List<int[]> path = new ArrayList<>();
         Set<Enclosure> visited = new HashSet<>();
 
-        // Sort enclosures by importance descending
+
         enclosures.sort((a, b) -> Double.compare(b.importance, a.importance));
 
         Coordinate current = droneDepot;
-        char currentFood = ' ';  // Empty at start
+        char currentFood = ' ';
 
         path.add(new int[]{droneDepot.x, droneDepot.y});
 
         for (Enclosure e : enclosures) {
             if (visited.contains(e)) continue;
 
-            // Check if we need to change food
+
             if (e.diet != currentFood) {
                 FoodStorage fs = findClosestFoodStorage(current, foodStorages, e.diet);
                 if (fs != null) {
@@ -66,13 +66,13 @@ public class Main {
                 }
             }
 
-            // Feed the enclosure
+
             path.add(new int[]{e.x, e.y});
             visited.add(e);
             current = e;
         }
 
-        // Return to depot
+
         path.add(new int[]{droneDepot.x, droneDepot.y});
 
         return path;
