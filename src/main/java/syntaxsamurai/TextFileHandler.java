@@ -10,7 +10,7 @@ public class TextFileHandler {
     public Coordinate edxDroneDepot;
     public List<Enclosure> exEnclosures;
     public List<FoodStorage> exFoodStorages;
-
+    public int exBattCap;
     public void readFile() throws IOException {
         FileReader fr;
         BufferedReader br;
@@ -45,6 +45,7 @@ public class TextFileHandler {
         exFoodStorages = foodStorages;
         exEnclosures = enclosures;
         edxDroneDepot = droneDepot;
+        exBattCap = batteryCapacity;
 
         System.out.println("Zoo Size: " + zooX + "x" + zooY + "x" + zooZ);
         System.out.println("Drone Depot: (" + droneDepot.x + "," + droneDepot.y + "," + droneDepot.z + ")");

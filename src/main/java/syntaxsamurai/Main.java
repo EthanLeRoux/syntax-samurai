@@ -15,7 +15,8 @@ public class Main {
         List<int[]> path = generateDronePath(
                 th.edxDroneDepot,
                 th.exEnclosures,
-                th.exFoodStorages
+                th.exFoodStorages,
+                th.exBattCap
         );
 
         System.out.println(formatPath(path));
@@ -44,7 +45,8 @@ public class Main {
     public static List<int[]> generateDronePath(
             Coordinate droneDepot,
             List<Enclosure> enclosures,
-            List<FoodStorage> foodStorages
+            List<FoodStorage> foodStorages,
+            int battCap
     ) {
         List<int[]> path = new ArrayList<>();
         Set<Enclosure> visited = new HashSet<>();
@@ -70,10 +72,14 @@ public class Main {
                 }
             }
 
+            if(battCap<=0){
+                path.add(new int[]{current.x, current.y});
+            }
 
             path.add(new int[]{e.x, e.y});
             visited.add(e);
             current = e;
+            System.out.println("Current Battery Power level: { "+battCap + " }");
         }
 
 
