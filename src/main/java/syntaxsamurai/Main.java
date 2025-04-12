@@ -89,23 +89,33 @@ public class Main {
                 }
             }
 
-            if(battCapTracker<250){
-                path.add(new int[]{droneDepot.x, droneDepot.y});
-                battCapTracker = 1125;
-            }
-
             int[][] travelledPath = {
-                    {droneDepot.x, droneDepot.y},
+                    {current.x, current.y},
                     {fs.x, fs.y},
+                    {e.x, e.y},
+                    {droneDepot.x, droneDepot.y}
             };
 
             double dist = calculateDistance(travelledPath);
-            double bcMinusDist = battCapTracker - dist;
-            System.out.println("Current Battery Power level: { "+bcMinusDist + " }");
+
+            if (battCapTracker < dist) {
+                path.add(new int[]{droneDepot.x, droneDepot.y});
+                battCapTracker = battCap;
+                current = droneDepot;
+                currentFood = ' ';
+            }
+
+            if (e.diet != currentFood) {
+                path.add(new int[]{fs.x, fs.y});
+                current = fs;
+                currentFood = fs.diet;
+            }
+
             path.add(new int[]{e.x, e.y});
+            battCapTracker -= dist;
+            System.out.println("Battery remaining: " + battCapTracker + "m");
             visited.add(e);
             current = e;
-            battCapTracker = (int) Math.round(bcMinusDist);
         }
 
 
