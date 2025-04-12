@@ -42,15 +42,33 @@ public class Main {
         return sb.toString();
     }
 
+    public static double calculateDistance(int[][] path) {
+        double totalDistance = 0;
+
+        for (int i = 1; i < path.length; i++) {
+            int x1 = path[i - 1][0];
+            int y1 = path[i - 1][1];
+            int x2 = path[i][0];
+            int y2 = path[i][1];
+
+            double dx = x2 - x1;
+            double dy = y2 - y1;
+
+            totalDistance += Math.sqrt(dx * dx + dy * dy);
+        }
+
+        return totalDistance;
+    }
+
     public static List<int[]> generateDronePath(
             Coordinate droneDepot,
             List<Enclosure> enclosures,
             List<FoodStorage> foodStorages,
             int battCap
     ) {
-        List<int[]> path = new ArrayList<>();
+        List<int[]> path = getInts();
         Set<Enclosure> visited = new HashSet<>();
-
+        int battCapTracker = 0;
 
         enclosures.sort((a, b) -> Double.compare(b.importance, a.importance));
 
@@ -62,9 +80,8 @@ public class Main {
         for (Enclosure e : enclosures) {
             if (visited.contains(e)) continue;
 
-
+            FoodStorage fs = findClosestFoodStorage(current, foodStorages, e.diet);
             if (e.diet != currentFood) {
-                FoodStorage fs = findClosestFoodStorage(current, foodStorages, e.diet);
                 if (fs != null) {
                     path.add(new int[]{fs.x, fs.y});
                     current = fs;
@@ -76,15 +93,27 @@ public class Main {
                 path.add(new int[]{current.x, current.y});
             }
 
+            int[][] travelledPath = {
+                    {droneDepot.x, droneDepot.y},
+                    {fs.x, fs.y},
+            };
+
+            double dist = calculateDistance(travelledPath);
+            double BcMinusDist = battCap - dist;
+            System.out.println("Current Battery Power level: { "+BcMinusDist + " }");
             path.add(new int[]{e.x, e.y});
             visited.add(e);
             current = e;
-            System.out.println("Current Battery Power level: { "+battCap + " }");
         }
 
 
         path.add(new int[]{droneDepot.x, droneDepot.y});
 
+        return path;
+    }
+
+    private static List<int[]> getInts() {
+        List<int[]> path = new ArrayList<>();
         return path;
     }
 
