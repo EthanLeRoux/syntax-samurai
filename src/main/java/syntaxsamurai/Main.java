@@ -1,5 +1,6 @@
 package syntaxsamurai;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,7 +10,6 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) throws IOException {
         TextFileHandler th = new TextFileHandler();
-
         th.readFile();
 
         List<int[]> path = generateDronePath(
@@ -19,6 +19,10 @@ public class Main {
         );
 
         System.out.println(formatPath(path));
+        FileWriter fw = new FileWriter("lvl1.txt");
+        fw.write(formatPath(path));
+        fw.close();
+
     }
 
     public static String formatPath(List<int[]> path) {
