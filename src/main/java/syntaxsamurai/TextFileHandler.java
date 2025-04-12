@@ -7,9 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextFileHandler {
+    public Coordinate edxDroneDepot;
+    public List<Enclosure> exEnclosures;
+    public List<FoodStorage> exFoodStorages;
 
-
-    public static void readFile() throws IOException {
+    public void readFile() throws IOException {
         FileReader fr;
         BufferedReader br;
         FileWriter fw;
@@ -39,6 +41,10 @@ public class TextFileHandler {
         List<Deadzone> deadzones = parseDeadzones(br.readLine());
 
         br.close();
+
+        exFoodStorages = foodStorages;
+        exEnclosures = enclosures;
+        edxDroneDepot = droneDepot;
 
         System.out.println("Zoo Size: " + zooX + "x" + zooY + "x" + zooZ);
         System.out.println("Drone Depot: (" + droneDepot.x + "," + droneDepot.y + "," + droneDepot.z + ")");
