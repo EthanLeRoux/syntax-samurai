@@ -68,7 +68,7 @@ public class Main {
     ) {
         List<int[]> path = getInts();
         Set<Enclosure> visited = new HashSet<>();
-        int battCapTracker = 0;
+        int battCapTracker = battCap;
 
         enclosures.sort((a, b) -> Double.compare(b.importance, a.importance));
 
@@ -89,8 +89,9 @@ public class Main {
                 }
             }
 
-            if(battCap<=0){
-                path.add(new int[]{current.x, current.y});
+            if(battCapTracker<250){
+                path.add(new int[]{droneDepot.x, droneDepot.y});
+                battCapTracker = 1125;
             }
 
             int[][] travelledPath = {
@@ -99,11 +100,12 @@ public class Main {
             };
 
             double dist = calculateDistance(travelledPath);
-            double BcMinusDist = battCap - dist;
-            System.out.println("Current Battery Power level: { "+BcMinusDist + " }");
+            double bcMinusDist = battCapTracker - dist;
+            System.out.println("Current Battery Power level: { "+bcMinusDist + " }");
             path.add(new int[]{e.x, e.y});
             visited.add(e);
             current = e;
+            battCapTracker = (int) Math.round(bcMinusDist);
         }
 
 
