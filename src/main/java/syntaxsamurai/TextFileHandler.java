@@ -18,13 +18,11 @@ public class TextFileHandler {
         fr = new FileReader("1.txt");
         br = new BufferedReader(fr);
 
-        // Line 1: Zoo dimensions
         String[] zooDim = parseTuple(br.readLine());
         int zooX = Integer.parseInt(zooDim[0]);
         int zooY = Integer.parseInt(zooDim[1]);
         int zooZ = Integer.parseInt(zooDim[2]);
 
-        // Line 2: Drone Depot
         String[] depotCoords = parseTuple(br.readLine());
         Coordinate droneDepot = new Coordinate(
                 Integer.parseInt(depotCoords[0]),
@@ -32,21 +30,16 @@ public class TextFileHandler {
                 Integer.parseInt(depotCoords[2])
         );
 
-        // Line 3: Battery Distance
         int batteryCapacity = Integer.parseInt(br.readLine());
 
-        // Line 4: Food Storages
         List<FoodStorage> foodStorages = parseFoodStorages(br.readLine());
 
-        // Line 5: Enclosures
         List<Enclosure> enclosures = parseEnclosures(br.readLine());
 
-        // Line 6: Deadzones
         List<Deadzone> deadzones = parseDeadzones(br.readLine());
 
         br.close();
 
-        // Print to check
         System.out.println("Zoo Size: " + zooX + "x" + zooY + "x" + zooZ);
         System.out.println("Drone Depot: (" + droneDepot.x + "," + droneDepot.y + "," + droneDepot.z + ")");
         System.out.println("Battery Capacity: " + batteryCapacity);
