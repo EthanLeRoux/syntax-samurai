@@ -1,4 +1,4 @@
-package za.ca.cput.adp3capstone;
+package syntaxsamurai;
 
 public class Main {
     public static void main(String[] args) {
